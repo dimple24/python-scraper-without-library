@@ -14,20 +14,21 @@ htmlText = response.text
 #print (htmlText)
 
 #split the data
-splitList= htmlText.split("href=")
+splitList= htmlText.split('href="')
 for i in range(1,len(splitList),1):
-  splitList1=splitList[i]
   a=""
-  #print(len(splitList1))
-  for j in range(0,len(splitList1),1):
-    if (splitList1[j]==">"):
-      break;
-    else:
-      a=a+splitList1[j]
+  for k in range(0,len(splitList[i]),1):
+      splitList1=splitList[i][k]
+      if (splitList1  =='"'):
+        break;
+      else:
+        a=a+splitList1
+  
   f = open("scrapper.txt", "a")
   f.write(a+'\n')
   f.close()
 f = open("scrapper.txt", "r")
+print(f.read())
 class myThread (threading.Thread):
     def __init__(self, name, counter):
         threading.Thread.__init__(self)
