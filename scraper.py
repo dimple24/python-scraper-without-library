@@ -1,6 +1,7 @@
 # Import libraries
 import requests
 import threading
+import datetime
 
 
 # Set the URL you want to webscrape from
@@ -28,7 +29,8 @@ for i in range(1,len(splitList),1):
   f.write(a+'\n')
   f.close()
 f = open("scrapper.txt", "r")
-print(f.read())
+exitFlag = 0
+
 class myThread (threading.Thread):
     def __init__(self, name, counter):
         threading.Thread.__init__(self)
@@ -37,7 +39,11 @@ class myThread (threading.Thread):
         self.counter = counter
     def run(self):
         print ("Starting " + self.name)
+        # Acquire lock to synchronize thread
+        threadLock.acquire()
         print_data(self.name, self.counter)
+        # Release lock for the next thread
+        threadLock.release()
         print ("Exiting " + self.name)
 
 def print_data(threadName, counter):
@@ -47,7 +53,10 @@ def print_data(threadName, counter):
       print (line)
       today = line
       datafields.append(today)
-      print ("%s[%d]: %s" % ( threadName, counter, datafields[0] ))
+    print ("%s[%d]: %s" % ( threadName, counter, datafields[0] ))
+
+threadLock = threading.Lock()
+threads = []
 
 # Create new threads
 thread1 = myThread("Thread", 1)
@@ -63,5 +72,14 @@ thread3.start()
 thread4.start()
 thread5.start()
 
+# Add threads to thread list
+threads.append(thread1)
+threads.append(thread2)
+threads.append(thread3)
+threads.append(thread4)
+threads.append(thread5)
 
+# Wait for all threads to complete
+for t in threads:
+    t.join()
 print ("Exiting the Program!!!")
