@@ -1,7 +1,7 @@
 # Import libraries
 import requests
 import threading
-import datetime
+
 
 
 # Set the URL you want to webscrape from
