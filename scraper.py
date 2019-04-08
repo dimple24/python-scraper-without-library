@@ -40,17 +40,17 @@ class myThread (threading.Thread):
         self.counter = counter
     def run(self):
         print ("Starting " + self.name)
-        print_date(self.name, self.counter)
+        print_data(self.name, self.counter)
         print ("Exiting " + self.name)
 
-def print_date(threadName, counter):
-    datefields = []
+def print_data(threadName, counter):
+    datafields = []
     file = open('scrapper.txt', "r") 
     for line in file: 
       print (line)
       today = line
-      datefields.append(today)
-      print ("%s[%d]: %s" % ( threadName, counter, datefields[0] ))
+      datafields.append(today)
+      print ("%s[%d]: %s" % ( threadName, counter, datafields[0] ))
 
 # Create new threads
 thread1 = myThread("Thread", 1)
