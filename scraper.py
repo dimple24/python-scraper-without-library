@@ -28,10 +28,6 @@ for i in range(1,len(splitList),1):
   f.write(a+'\n')
   f.close()
 f = open("scrapper.txt", "r")
-print(f.read())
-def connection():
-    print ('connection')
-    return
 class myThread (threading.Thread):
     def __init__(self, name, counter):
         threading.Thread.__init__(self)
